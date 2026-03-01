@@ -16,6 +16,7 @@ import { TableRowItem } from "./TableRow"
 import { tableHeader } from "@/data/table"
 import { useStockFilters } from "./filters/useStockFilters"
 import { StockFilters } from "./filters/StockFilters"
+import { Skeleton } from "../ui/skeleton"
 
 
 export function TableStock() {
@@ -64,11 +65,15 @@ export function TableStock() {
                     </TableHeader>
                     <TableBody>
                         {isLoading ? (
-                            <TableRow>
-                                <td colSpan={tableHeader.length} className="text-center py-8">
-                                    Carregando...
-                                </td>
-                            </TableRow>
+                            Array.from({ length: 5 }).map((_, index) => (
+                                <TableRow key={index}>
+                                    {tableHeader.map((_, i) => (
+                                        <td key={i} className="p-4">
+                                            <Skeleton className="h-4 w-full" />
+                                        </td>
+                                    ))}
+                                </TableRow>
+                            ))
                         ) : filteredStocks.length === 0 ? (
                             <TableRow>
                                 <td colSpan={tableHeader.length} className="text-center py-8">

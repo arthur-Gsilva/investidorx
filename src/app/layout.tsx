@@ -30,7 +30,21 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="pt-br">
+        <html lang="pt-br" suppressHydrationWarning>
+            <head>
+                <script
+                    dangerouslySetInnerHTML={{
+                        __html: `
+                            (function() {
+                                const theme = localStorage.getItem('theme');
+                                if (theme) {
+                                document.documentElement.setAttribute('data-theme', theme);
+                                }
+                            })();
+                            `,
+                    }}
+                />
+            </head>
             <body
                 className={`${geistSans.variable} ${geistMono.variable} antialiased pb-4`}
             >
@@ -41,7 +55,7 @@ export default function RootLayout({
                         {children}
                     </main>
                     <Toaster richColors />
-                    
+
                 </Providers>
 
                 <ThemeButton />

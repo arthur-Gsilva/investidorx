@@ -4,6 +4,7 @@ import { useState } from "react"
 import { getDividends } from "@/services/dividends"
 import { useQuery } from "@tanstack/react-query"
 import { toast } from "sonner"
+import { SkeletonBox } from "../skeletons/SkeletonBox"
 
 type Props = {
     stock: Stock,
@@ -12,8 +13,6 @@ type Props = {
 
 export const StockModal = ({ stock, setClose }: Props) => {
 
-    if (!stock.dividendsData) return null
-
     const [range, setRange] = useState<number | undefined>(2)
 
     const { data: dividends, isLoading } = useQuery({
@@ -21,6 +20,7 @@ export const StockModal = ({ stock, setClose }: Props) => {
         queryFn: () => getDividends(stock.symbol, range),
         staleTime: 6000
     })
+
 
 
     return (
@@ -40,7 +40,7 @@ export const StockModal = ({ stock, setClose }: Props) => {
                         </h4>
 
                         <div className="flex flex-col items-center ">
-                            <div className="flex items-center gap-4">
+                            <div className="flex items-center gap-4 text-sm sm:text-md">
                                 <button
                                     onClick={() => setRange(2)}
                                     className="cursor-pointer"
@@ -79,14 +79,21 @@ export const StockModal = ({ stock, setClose }: Props) => {
                         </div>
                     </div>
 
-                    {!dividends ? (
+                    {!dividends && !isLoading &&
                         <p className="text-gray-500">Sem dados de dividendos disponíveis.</p>
-                    ) : (
+                    }
+
+                    {isLoading &&
+                        <SkeletonBox />
+                    }
+
+                    {dividends &&
                         <DividendsChart data={dividends} />
-                    )}
+                    }
+
                 </div>
 
-                <div className="mt-2 flex gap-4 items-center">
+                <div className="mt-2 flex gap-4 items-center flex-col sm:flex-row">
                     <input
                         type="number" name="qt" id="qt"
                         className="border-2 outline-0 rounded-md border-primary-dark text-black pl-3 py-1"
