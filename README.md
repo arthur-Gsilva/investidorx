@@ -1,4 +1,4 @@
-  **InvestidorX**
+  **InvestidorX** 💰
 
 > Desafio técnico desenvolvido para a **Stalse**  
 
@@ -29,6 +29,14 @@ Link para o projeto: [Acesse aqui](https://investidorx.vercel.app/)
 - rode `npm install`
 - rode `npm run dev`
 - Pronto!
+
+## 🔐 Variáveis de Ambiente
+
+Antes de rodar o projeto, crie um arquivo `.env` na raiz com base no `.env.example`:
+
+```bash
+cp .env.example .env
+```
 
 ## 🧪 Testes
 
