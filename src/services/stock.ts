@@ -24,7 +24,7 @@ export const getTest = async (): Promise<Stock[] | null> => {
 }
 
 export const getTableStocks = async (): Promise<Stock[] | null> => {
-    const url = `https://brapi.dev/api/quote/ITUB4,PETR4,VALE3,BBDC4,BBAS3,ABEV3,WEGE3,LREN3,TAEE11,SUZB3?dividends=true&token=${process.env.NEXT_PUBLIC_BRAPI_TOKEN as string}`
+    const url = `https://brapi.dev/api/quote/ITUB4,PETR4,VALE3,MGLU3?dividends=true`
 
     try{
         const res = await fetch(url)
